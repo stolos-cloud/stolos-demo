@@ -1,0 +1,52 @@
+kind: Airway
+apiVersion: yoke.cd/v1alpha1
+metadata:
+  name: containeringresses.stolos.cloud
+  annotations:
+    stolos.cloud/template-display-name: Container + Ingress
+spec:
+  wasmUrls:
+    flight: oci://ghcr.io/stolos-cloud/stolos-demo/scaffolds/container-ingress:5b4e1c238e7b92c557fa417c5a63524b4bafd4f6
+  fixDriftInterval: 5m0s
+  mode: subscription
+  template:
+    group: stolos.cloud
+    names:
+      plural: containeringresses
+      singular: containeringress
+      kind: ContainerIngress
+    scope: Namespaced
+    versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+        schema:
+          openAPIV3Schema:
+            type: object
+            required:
+              - spec
+            properties:
+              spec:
+                type: object
+                required:
+                  - image
+                  - host
+                properties:
+                  containerPort:
+                    type: integer
+                    default: 8080
+                  host:
+                    type: string
+                  image:
+                    type: string
+                  path:
+                    type: string
+                    default: /
+                  replicas:
+                    type: integer
+                    default: 1
+                  tlsSecretName:
+                    type: string
+  prune:
+    crds: true
+  timeout: 1m0s
