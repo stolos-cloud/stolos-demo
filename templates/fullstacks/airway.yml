@@ -1,0 +1,108 @@
+kind: Airway
+apiVersion: yoke.cd/v1alpha1
+metadata:
+  name: fullstacks.stolos.cloud
+  annotations:
+    stolos.cloud/template-display-name: Full Stack (API + Frontend + DB + Redis)
+spec:
+  wasmUrls:
+    flight: oci://ghcr.io/stolos-cloud/stolos-demo/scaffolds/full-stack:78fcd170e11baa652c53455e7ca577cd71a344f2
+  fixDriftInterval: 5m0s
+  mode: subscription
+  template:
+    group: stolos.cloud
+    names:
+      plural: fullstacks
+      singular: fullstack
+      kind: FullStack
+    scope: Namespaced
+    versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+        schema:
+          openAPIV3Schema:
+            type: object
+            required:
+              - spec
+            properties:
+              spec:
+                type: object
+                required:
+                  - backend
+                  - frontend
+                  - database
+                  - cache
+                properties:
+                  backend:
+                    type: object
+                    required:
+                      - image
+                      - host
+                    properties:
+                      containerPort:
+                        type: integer
+                        default: 8080
+                      host:
+                        type: string
+                      image:
+                        type: string
+                      path:
+                        type: string
+                        default: /api
+                      replicas:
+                        type: integer
+                        default: 2
+                      tlsSecretName:
+                        type: string
+                  cache:
+                    type: object
+                    properties:
+                      flavor:
+                        type: string
+                        default: redis
+                      port:
+                        type: integer
+                        default: 6379
+                  database:
+                    type: object
+                    required:
+                      - clusterName
+                      - databaseName
+                    properties:
+                      clusterName:
+                        type: string
+                      databaseName:
+                        type: string
+                      instances:
+                        type: integer
+                        default: 1
+                      postgresVersion:
+                        type: string
+                        default: "16"
+                      storageSize:
+                        type: string
+                        default: 10Gi
+                  frontend:
+                    type: object
+                    required:
+                      - host
+                    properties:
+                      host:
+                        type: string
+                      image:
+                        type: string
+                        default: nginx:stable-alpine
+                      path:
+                        type: string
+                        default: /
+                      replicas:
+                        type: integer
+                        default: 1
+                      staticContent:
+                        type: string
+                      tlsSecretName:
+                        type: string
+  prune:
+    crds: true
+  timeout: 1m0s
