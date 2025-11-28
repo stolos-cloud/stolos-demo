@@ -1,1 +1,72 @@
-
+kind: Airway
+apiVersion: yoke.cd/v1alpha1
+metadata:
+  name: containeringressdbs.stolos.cloud
+  annotations:
+    stolos.cloud/template-display-name: Container + Ingress + DB
+spec:
+  wasmUrls:
+    flight: oci://ghcr.io/stolos-cloud/stolos-demo/scaffolds/container-ingress-db:3a8710ded6a0fb617a4dec860d81e054fe9d049e
+  fixDriftInterval: 5m0s
+  mode: subscription
+  template:
+    group: stolos.cloud
+    names:
+      plural: containeringressdbs
+      singular: containeringressdb
+      kind: ContainerIngressDB
+    scope: Namespaced
+    versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+        schema:
+          openAPIV3Schema:
+            type: object
+            required:
+              - spec
+            properties:
+              spec:
+                type: object
+                required:
+                  - image
+                  - host
+                  - database
+                properties:
+                  containerPort:
+                    type: integer
+                    default: 8080
+                  database:
+                    type: object
+                    required:
+                      - clusterName
+                      - databaseName
+                    properties:
+                      clusterName:
+                        type: string
+                      databaseName:
+                        type: string
+                      instances:
+                        type: integer
+                        default: 1
+                      postgresVersion:
+                        type: string
+                        default: "16"
+                      storageSize:
+                        type: string
+                        default: 10Gi
+                  host:
+                    type: string
+                  image:
+                    type: string
+                  path:
+                    type: string
+                    default: /
+                  replicas:
+                    type: integer
+                    default: 2
+                  tlsSecretName:
+                    type: string
+  prune:
+    crds: true
+  timeout: 1m0s
