@@ -6,7 +6,7 @@ metadata:
     stolos.cloud/template-display-name: Container + Ingress
 spec:
   wasmUrls:
-    flight: oci://ghcr.io/stolos-cloud/stolos-demo/scaffolds/container-ingress:5b4e1c238e7b92c557fa417c5a63524b4bafd4f6
+    flight: oci://ghcr.io/stolos-cloud/stolos-demo/scaffolds/container-ingress:791be2776d177f329ba32653a85571a40a730da8
   fixDriftInterval: 5m0s
   mode: subscription
   template:
