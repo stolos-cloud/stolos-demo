@@ -12,6 +12,7 @@ spec:
     targetRevision: HEAD
     directory:
       include: "*/airway.yml"
+      recurse: true
   project: default
   destination:
     server: https://kubernetes.default.svc
