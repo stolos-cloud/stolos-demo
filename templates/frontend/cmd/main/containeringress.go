@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	ContainerIngressAPIVersion = "templates.stolos.cloud/v1"
+	ContainerIngressAPIVersion = "stolos.coud/v1alpha"
 	KindContainerIngress       = "ContainerIngress"
 )
 
