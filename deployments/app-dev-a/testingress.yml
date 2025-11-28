@@ -1,0 +1,12 @@
+apiVersion: stolos.cloud/v1alpha1
+kind: ContainerIngress
+metadata:
+  name: testingress
+  namespace: app-dev-a
+spec:
+  containerPort: 8080
+  host: demo.cloud
+  image: nginx:latest
+  path: /
+  replicas: 1
+  tlsSecretName: test
