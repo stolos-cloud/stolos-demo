@@ -1,0 +1,11 @@
+apiVersion: stolos.cloud/v1alpha1
+kind: Backend
+metadata:
+  name: test-test-test
+  namespace: app-dev-a
+spec:
+  image: nginx
+  labels: {}
+  nodePort: 0
+  port: 80
+  replicas: 1
