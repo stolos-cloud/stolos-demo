@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "gcs" {
-    bucket = "stolos-demo-tf-state-qf1ziisn"
+    bucket = "cluster-demo-tf-state-04u4e4at"
     prefix = "infrastructure/state"
   }
 }
@@ -18,7 +18,7 @@ provider "google" {
 
 # VPC Network
 resource "google_compute_network" "main_vpc" {
-  name                    = "stolos-demo-vpc"
+  name                    = "cluster-demo-vpc"
   auto_create_subnetworks = false
 }
 
@@ -26,7 +26,7 @@ resource "google_compute_network" "main_vpc" {
 # - On-prem pods: 10.244.0.0/16
 # - On-prem services: 10.96.0.0/12
 resource "google_compute_subnetwork" "main_subnet" {
-  name          = "stolos-demo-subnet"
+  name          = "cluster-demo-subnet"
   ip_cidr_range = "172.16.0.0/20"
   region        = "us-central1"
   network       = google_compute_network.main_vpc.id
@@ -36,7 +36,7 @@ resource "google_compute_subnetwork" "main_subnet" {
 
 # Allow KubeSpan WireGuard (UDP 51820)
 resource "google_compute_firewall" "kubespan" {
-  name    = "stolos-demo-allow-kubespan"
+  name    = "cluster-demo-allow-kubespan"
   network = google_compute_network.main_vpc.name
 
   allow {
@@ -52,7 +52,7 @@ resource "google_compute_firewall" "kubespan" {
 
 # Allow Talos API (TCP 50000)
 resource "google_compute_firewall" "talos_api" {
-  name    = "stolos-demo-allow-talos-api"
+  name    = "cluster-demo-allow-talos-api"
   network = google_compute_network.main_vpc.name
 
   allow {
@@ -68,7 +68,7 @@ resource "google_compute_firewall" "talos_api" {
 
 # Allow Kubernetes API (TCP 6443)
 resource "google_compute_firewall" "kubernetes_api" {
-  name    = "stolos-demo-allow-k8s-api"
+  name    = "cluster-demo-allow-k8s-api"
   network = google_compute_network.main_vpc.name
 
   allow {
@@ -84,7 +84,7 @@ resource "google_compute_firewall" "kubernetes_api" {
 
 # Allow internal
 resource "google_compute_firewall" "internal_cluster" {
-  name    = "stolos-demo-allow-internal"
+  name    = "cluster-demo-allow-internal"
   network = google_compute_network.main_vpc.name
 
   allow {
