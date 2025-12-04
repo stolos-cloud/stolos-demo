@@ -1,5 +1,5 @@
 # GCP Talos Node: gcp-worker-1
-# Managed by Stolos - Generated at 2025-12-04T22:39:13Z
+# Managed by Stolos - Generated at 2025-12-04T22:56:36Z
 # Talos config stored in GCS bucket
 
 # Fetch Talos machine configuration from GCS storage
