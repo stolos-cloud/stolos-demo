@@ -1,8 +1,0 @@
-apiVersion: stolos.cloud/v1alpha
-kind: AirwayInputs
-spec:
-  NamePlural:   "fullstacks"
-  NameSingular: "fullstack"
-  Kind:         "FullStack"
-  Version:      "v1alpha1"
-  DisplayName:  "Full Stack (API + Frontend + DB + Redis)"
